@@ -76,5 +76,54 @@ struct Keys
 
 } // namespace Re
 
+/* Example, using GLFW
+
+-  First a function must register all the desired keys at the application initialization
+
+void InitializeKeyboard() {
+
+    Re::Keys::map[Re::Key_Tab] = GLFW_KEY_TAB;
+    Re::Keys::map[Re::Key_Escape] = GLFW_KEY_ESCAPE;
+
+    Re::Keys::map[Re::Key_Z] = GLFW_KEY_Z;
+    Re::Keys::map[Re::Key_Q] = GLFW_KEY_Q;
+    Re::Keys::map[Re::Key_S] = GLFW_KEY_S;
+    Re::Keys::map[Re::Key_D] = GLFW_KEY_D;
+
+    Re::Keys::map[Re::Key_Up] = GLFW_KEY_UP;
+    Re::Keys::map[Re::Key_Right] = GLFW_KEY_RIGHT;
+    Re::Keys::map[Re::Key_Down] = GLFW_KEY_DOWN;
+    Re::Keys::map[Re::Key_Left] = GLFW_KEY_LEFT;
+}
+
+
+- Then, a function must setup the pressed/released key on the begining of the frame
+
+void KeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods) {
+
+    // Setup Re Keys
+
+    if (action == GLFW_PRESS) {
+        Keys::State& s = Keys::states[key];
+
+        if (s != Keys::Down) {
+            s = Keys::OnPress;
+        }
+
+    }
+
+    else if (action == GLFW_RELEASE) {
+        Keys::State& s = Keys::states[key];
+        if (s != Keys::Released) {
+            s = Keys::OnRelease;
+        }
+    }
+}
+
+- Finally Keys::FrameEnd() must be called at the frame end
+
+Keys::FrameEnd();
+
+*/
 
 #endif // RE_KEYS_H
